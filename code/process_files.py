@@ -1,16 +1,17 @@
 from code.utils.csv_loader import CSVtoDataFrameHelper
-from code.models.event import EventFlatFileForTableau
-from glob import glob
 
-file_list = glob('/Users/shaunwalters/bainbridge_demo/code/resources/faers_ascii_2018q2/ascii/*.txt')
+path = '/Users/shaunwalters/bainbridge_demo/code/resources/faers_ascii_2018q2/ascii/'
 
-print(file_list)
+# DROP THERAPY AND INDICATIONS
+files = ['DEMO18Q2.txt',
+         'DRUG18Q2.txt',
+         'REAC18Q2.txt',
+         'OUTC18Q2.txt',
+         'RPSR18Q2.txt']
 
-test = EventFlatFileForTableau(file_list[0:5], 'DEMO18Q2')
+file_list = [path + f for f in files]
 
-print(test)
-
-#
-# test = CSVtoDataFrameHelper('/Users/shaunwalters/bainbridge_demo/code/resources/faers_ascii_2018q2/ascii/DEMO18Q2.txt')
-#
-# print(test.data['DEMO18Q2'].groupby(level=0).caseversion.count().sort_values(ascending=False).head())
+for f in file_list:
+    helper = CSVtoDataFrameHelper(f).data
+    helper_name = [x for x in helper.keys()][0]
+    df = helper[helper_name].to_csv('/Users/shaunwalters/Desktop/' + helper_name + '.csv')

@@ -3,22 +3,6 @@ import pandas as pd
 from typing import List, Dict
 from code.utils.csv_loader import CSVtoDataFrameHelper
 
-import time
-
-
-def timeit(method):
-
-    def timed(*args, **kw):
-        ts = time.time()
-        result = method(*args, **kw)
-        te = time.time()
-
-        print('%r (%r, %r) %2.2f sec' %
-              (method.__name__, args, kw, te-ts))
-        return result
-
-    return timed
-
 
 class EventFlatFileForTableau(object):
 
@@ -40,8 +24,6 @@ class EventFlatFileForTableau(object):
         return df_dict
 
     def assemble_flat_file(self) -> pd.DataFrame:
-
-        time.sleep(5)
 
         leader = self.inventory[self.event_file]
         frames = [self.inventory[x] for x in self.inventory.keys() if x != self.event_file]

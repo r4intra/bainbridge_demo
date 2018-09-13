@@ -1,4 +1,5 @@
 import pandas as pd
+from typing import Dict
 
 
 class CSVtoDataFrameHelper(object):
@@ -13,8 +14,8 @@ class CSVtoDataFrameHelper(object):
                                             repr([x for x in self.data.values()])
                                             )
 
-    def load_csv(self):
-        init_df = pd.read_csv(self.fileloc, index_col=(0, 1), delimiter='$')
+    def load_csv(self) -> Dict:
+        init_df = pd.read_csv(self.fileloc, index_col=0, delimiter='$')
         print(self.csv_name + 'loaded.')
         print(init_df.info())
         return {self.csv_name: init_df}
